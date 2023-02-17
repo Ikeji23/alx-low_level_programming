@@ -9,7 +9,7 @@ int main(void)
 {
 	int num;
 
-	for (num = 35; num <= 40; num++)
+	for (num = 35; num <= 51; num++)
 		putchar((char)num);
 	putchar('\n');
 	return (0);
