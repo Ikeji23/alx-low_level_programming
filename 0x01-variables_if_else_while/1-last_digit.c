@@ -9,7 +9,7 @@
  *
  * Return: 0 (Success)
  */
-int main(Last digit)
+int main(void)
 {
 	int n;
 	int lastDigit;
