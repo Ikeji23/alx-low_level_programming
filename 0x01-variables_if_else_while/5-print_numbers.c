@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - entry point 
+ * main - entry point
  * Description: Print numbers 0 to 9
  * Retrun: 0 (success)
  */
