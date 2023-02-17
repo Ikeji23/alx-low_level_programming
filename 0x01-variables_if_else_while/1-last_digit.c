@@ -3,11 +3,12 @@
 #include <stdio.h>
 
 /**
- * Main - Prints if number is greater than, zero or less than 6 and not 0
+ * main - entry point
  *
- * Return: 0 (Success)
+ *
+ * Return: always return 0
+ *
  */
-
 int main(void)
 {
 	int n;
@@ -16,13 +17,16 @@ int main(void)
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
 	lastn = n % 10;
-	printf("Last digit of %d is %d and is ", n, lastn);
+
 	if (lastn > 5)
-		printf("greater than 5\n");
-	else if (lastn == 0)
-		printf("0\n");
-	else
-		printf("less than 6 and not 0\n");
+	{
+		printf("Last digit of %d is %d and is greater than 5\n", n, lastn);
+	} else if (lastn == 0)
+	{
+		printf("Last digit of %d is %d and is 0\n", n, lastn);
+	} else
+	{
+		printf("Last digit of %d is %d and is less than 6 and not 0\n", n, lastn);
+	}
 	return (0);
 }
-
