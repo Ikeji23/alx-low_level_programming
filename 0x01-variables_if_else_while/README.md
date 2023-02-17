@@ -1,1 +1,1 @@
-single digit numbers
+all single digits
