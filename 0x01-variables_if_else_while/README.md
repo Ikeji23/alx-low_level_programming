@@ -1,1 +1,1 @@
-three digits
+two two-digits
