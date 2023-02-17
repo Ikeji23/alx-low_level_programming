@@ -2,7 +2,7 @@
 
 /**
  * main - entry point
- * Description: print the alphabet in lowercase 
+ * Description: print the alphabet in lowercase
  * Return: 0 (Success)
  */
 int main(void)
