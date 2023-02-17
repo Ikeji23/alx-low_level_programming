@@ -5,7 +5,6 @@
 /**
  * Main - Prints if number is greater than, zero or less than 6 and not 0
  *
- *
  * Return: 0 (Success)
  */
 int main(void)
