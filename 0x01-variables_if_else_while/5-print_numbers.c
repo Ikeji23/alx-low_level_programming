@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 /**
- * main - entry point
- * Description: Print numbers 0 to 9
- * Retrun: 0 (success)
+ * main - Entry point
+ * Description: print numbers 0 to 9
+ * Return: 0 (success)
  */
 int main(void)
 {
