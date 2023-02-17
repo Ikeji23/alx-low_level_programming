@@ -1,1 +1,1 @@
-lowercase
+lowercase and uppercase
