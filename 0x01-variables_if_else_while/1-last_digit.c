@@ -5,6 +5,8 @@
 /**
  * Main - Prints if number is greater than, zero or less than 6 and not 0
  *
+ * Description: 'Last digit of'
+ *
  * Return: 0 (Success)
  */
 int main(void)
