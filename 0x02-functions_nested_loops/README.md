@@ -1,1 +1,1 @@
-10 times the alphabet
+lowercase character
