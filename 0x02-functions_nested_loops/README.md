@@ -1,1 +1,1 @@
-lowercase character
+alphabetic character
