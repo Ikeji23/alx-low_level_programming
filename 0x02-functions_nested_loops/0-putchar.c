@@ -5,6 +5,7 @@
  * main - Entry point of the program
  *
  * This function prints the '_putchar'
+ * @c: The character to print
  *
  * Return: Always 0 (Success)
 */
