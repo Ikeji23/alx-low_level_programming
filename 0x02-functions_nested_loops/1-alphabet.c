@@ -5,7 +5,7 @@
  * Description: print the alphabet in lower case
  * Return: Always (Success)
  */
-void print_alphabet(void)
+main print_alphabet(void)
 {
 	char c;
 
