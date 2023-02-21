@@ -1,1 +1,1 @@
-Putchar
+prints alphabet
