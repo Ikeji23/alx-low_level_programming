@@ -1,1 +1,1 @@
-Fibonacci sequence
+first 98 Fibonacci numbers
