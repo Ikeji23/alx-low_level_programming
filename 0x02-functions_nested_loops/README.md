@@ -1,1 +1,1 @@
-9 times table
+two integers
