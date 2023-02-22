@@ -10,22 +10,25 @@
  */
 int main(void)
 {
-	long double prev, curr, temp;
-	int i;
+	int counter = 2;
 
-	prev = 1;
-	curr = 2;
-	i = 1;
-	printf("%.0Lf, %.0Lf, ", prev, curr);
-	while (i <= 96)
+	float a = 1;
+	float b = a + 1;
+	float c = a + b;
+
+	printf("%.0f, ", a);
+	printf("%.0f, ", b);
+	while (counter < 98)
 	{
-		temp = curr;
-		curr += prev;
-		prev = temp;
-		printf("%.0Lf", curr);
-		if (i != 96)
+		counter++;
+		printf("%.0f", c);
+		a = b;
+		b = c;
+		c = a + b;
+		if (counter < 98)
+		{
 			printf(", ");
-		++i;
+		}
 	}
 	printf("\n");
 	return (0);
