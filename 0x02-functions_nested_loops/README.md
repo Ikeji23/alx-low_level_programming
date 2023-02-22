@@ -1,1 +1,1 @@
-prints all natural numbers
+n times table
