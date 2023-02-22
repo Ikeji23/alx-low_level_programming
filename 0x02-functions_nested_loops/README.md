@@ -1,1 +1,1 @@
-two integers
+prints all natural numbers
