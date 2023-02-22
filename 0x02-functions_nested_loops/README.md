@@ -1,1 +1,1 @@
-n times table
+Multiples
