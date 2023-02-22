@@ -1,1 +1,1 @@
-Fibonacci numbers
+Fibonacci sequence
