@@ -2,12 +2,12 @@
 
 /**
  * _isupper - check if a letter is upper
- * @c: Thenumber to be checked
+ * @x: Thenumber to be checked
  * Return: 1 for uppercase or 0 for any else
  */
-int _isupper(int c)
+int _isupper(int x)
 {
-	if (c >= 65 && c <= 99)
+	if (x >= 65 && x <= 99)
 	{
 	return (1);
 	}
