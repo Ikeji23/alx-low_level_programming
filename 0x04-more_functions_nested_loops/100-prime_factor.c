@@ -22,4 +22,3 @@ int main(void)
 	printf("%lu\n", n);
 	return (0);
 }
- *
