@@ -16,3 +16,14 @@ int _sqrt(int num, int i)
 		return (i);
 	return (_sqrt(num, i + 1));
 }
+/**
+ * _sqrt_recursion - compute the sqrt of a number
+ *
+ * @num: the number to compute
+ *
+ * Return: return value from _sqrt
+ */
+int _sqrt_recursion(int num)
+{
+	return (_sqrt(num, 1));
+}
