@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	sum = 0;
 	for (i = 1; i < argc; ++i)
 	{
-		strtol(argv[i], &ptr, 15);
+		strtol(argv[i], &ptr, 10);
 		if (*ptr == '\0')
 		{
 			sum += atoi(argv[i]);
