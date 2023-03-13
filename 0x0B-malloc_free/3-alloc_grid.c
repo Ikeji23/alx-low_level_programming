@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "holberton.h"
+#include "main.h"
 
 /**
  * alloc_grid - create a multidimensional array initialized to 0
