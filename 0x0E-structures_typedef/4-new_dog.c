@@ -1,44 +1,49 @@
-#include <stdlib.h>
-#include <string.h>
 #include "dog.h"
-
-typedef struct dog dog_t;
-
+#include <stdio.h>
+#include <stdlib.h>
 /**
- * Creates a new dog with the given name, age, and owner.
- * Returns a pointer to the new dog.
+ * new_dog - creates new dog
+ * @name: name of dog
+ * @age: age of dog
+ * @owner: owner of dog
+ * Return: a dog object
  */
-dog_t *new_dog(char *name, float age, char *owner) 
+dog_t *new_dog(char *name, float age, char *owner)
 {
-    // Allocate memory for the new dog
-    dog_t *d = malloc(sizeof(dog_t));
-    if (d == NULL) 
-    {
-        return NULL;
-    }
-    
-    // Allocate memory for the name and copy it
-    d->name = malloc(strlen(name) + 1);
-    if (d->name == NULL) 
-    {
-        free(d);
-        return NULL;
-    }
-    strcpy(d->name, name);
-    
-    // Allocate memory for the owner and copy it
-    d->owner = malloc(strlen(owner) + 1);
-    if (d->owner == NULL) 
-    {
-        free(d->name);
-        free(d);
-        return NULL;
-    }
-    strcpy(d->owner, owner);
-    
-    // Set the age
-    d->age = age;
-    
-    return d;
-}
+	int i, len1, len2;
+	dog_t *ndog;
+	char *a, *b;
 
+	len1 = 0;
+	for (i = 0; name[i] != '\0'; i++)
+		len1++;
+	len2 = 0;
+	for (i = 0; owner[i] != '\0'; i++)
+		len2++;
+	ndog = malloc(sizeof(dog_t));
+	if (ndog == NULL)
+		return (NULL);
+	a = malloc((len1 + 1) * sizeof(char));
+	if (a == NULL)
+	{
+		free(ndog);
+		return (NULL);
+	}
+	for (i = 0; i < len1; i++)
+		a[i] = name[i];
+	a[i] = '\0';
+	ndog->name = a;
+	ndog->age = age;
+	b = malloc((len2 + 1) * sizeof(char));
+	if (b == NULL)
+	{
+		free(a);
+		free(ndog);
+		return (NULL);
+	}
+	for (i = 0; i < len2; i++)
+		b[i] = owner[i];
+	b[i] = '\0';
+	ndog->owner = b;
+	return (ndog);
+}
