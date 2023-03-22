@@ -2,11 +2,14 @@
 
 /**
  * print_name - print the name
- * @name: name to print
- * @f: function to use
+ *
+ * @name: the name to print
+ * @func: pointer to a function that accepts a string as argument
+ * and returns void
+ *
  */
-void print_name(char *name, void (*f)(char *))
+void print_name(char *name, void (*func)(char *))
 {
-	if (name != NULL && f != NULL)
-		f(name);
+	if (name && func)
+		func(name);
 }
