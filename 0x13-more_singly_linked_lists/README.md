@@ -1,0 +1,1 @@
+This task does a deep dive into Singly linked lists. It prints all functions of a listin_it list using printf. It also returns the number of elements in a linked listin_it and other fuctions and prototypes as well.
