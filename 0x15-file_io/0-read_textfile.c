@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio>
 #include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include "main.h"
 
 /**
@@ -21,29 +19,25 @@
  */ 		
 ssize_t read_textfile(const char *filename, size_t letters);
 {
-	if (!filename)
+	int fd, printed, wrote;
+	char *buff;
+
+	buff = malloc(letters);
+	if (buff == NULL)
 		return (0);
-	int fd = open(filename, O_RDONLY);
+	if (filename == NULL)
+		return (0);
+	fd = open(filename, O_RDWR);
 	if (fd == -1)
 		return (0);
-
-	char *buffer = (char *) malloc(letters);
-	if (!buffer)
-	{
-		close(fd);
+	printed = read(fd, buff, letters);
+	if (printed == -1)
 		return (0);
-	}
-	ssize_t bytes_read = read(fd, buffer, letters);
-	if (bytes_read == -1 || bytes_read != write(STDOUT_FILENO,
-				buffer, bytes_read))
-
-	{
-		free(buffer);
-		close(fd);
+	wrote = write(STDOUT_FILENO, buff, printed);
+	if (wrote == -1)
 		return (0);
-	}
-
-	free(buffer);
-	close(fd);
-	return (bytes_read);
+	if (close(fd) == -1)
+		return (0);
+	free(buff);
+	return (printed);
 }
