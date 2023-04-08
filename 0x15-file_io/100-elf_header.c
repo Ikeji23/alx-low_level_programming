@@ -1,77 +1,92 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <elf.h>
 #include "main.h"
 
 /**
- * main - displays the information contained in the ELF header
- * @argc: the number of arguments passed to the program
- * @argv: an array of pointers to the arguments passed to the program
+ * main - Entry point
  *
- * Return: 0 if successful, otherwise 98 if an error occurred
+ * @argc: argument count
+ * @argv: command line arguments
+ *
+ * Description: a program to display information from an ELF header
+ *		USAGE: elf_header elf_filename
+ *		DISPLAYED INFO: magic, class, data, version, OS/ABI
+ *				ABI version, type, entry point address
+ *		FORMAT: same as readelf -h
+ *		lseek can be used only once
+ *		read can be used a maximum of 2 times at runtime
+ *		printf is allowed
+ *
+ * Return: 0 (success), if file is not ELF, exit with status of 98
  */
-int main(int argc, char *argv[])
+void print_error(char* message)
 {
-Elf64_Ehdr header; / ELF header structure /
-int file; / file descriptor for the ELF file /
-ssize_t bytes_read; / number of bytes read by read /
-unsigned int i; / loop index */
-
-/* Check number of arguments */
-if (argc != 2)
-{
-dprintf(STDERR_FILENO, "Usage: %s elf_filename\n", argv[0]);
-exit(98);
+    fprintf(stderr, "%s\n", message);
+    exit(98);
 }
 
-/* Open the ELF file */
-file = open(argv[1], O_RDONLY);
-if (file == -1)
+void print_elf_header(Elf64_Ehdr* elf_header)
 {
-dprintf(STDERR_FILENO, "Error: Cannot read file '%s'.\n", argv[1]);
-exit(98);
+    printf("ELF Header:\n");
+    printf("  Magic:   ");
+
+    for (int i = 0; i < EI_NIDENT; i++)
+    {
+        printf("%02x ", elf_header->e_ident[i]);
+    }
+    printf("\n");
+    printf("  Class:                             %s\n",
+           elf_header->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" :
+           elf_header->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" : "invalid");
+    printf("  Data:                              %s\n",
+           elf_header->e_ident[EI_DATA] == ELFDATA2LSB ? "2's complement, little endian" :
+           elf_header->e_ident[EI_DATA] == ELFDATA2MSB ? "2's complement, big endian" : "invalid");
+    printf("  Version:                           %d\n", elf_header->e_ident[EI_VERSION]);
+    printf("  OS/ABI:                            ");
+    switch (elf_header->e_ident[EI_OSABI])
+    {
+        case ELFOSABI_SYSV: printf("UNIX System V ABI\n"); break;
+        case ELFOSABI_HPUX: printf("HP-UX ABI\n"); break;
+        case ELFOSABI_NETBSD: printf("NetBSD ABI\n"); break;
+        case ELFOSABI_LINUX: printf("Linux ABI\n"); break;
+        case ELFOSABI_SOLARIS: printf("Solaris ABI\n"); break;
+        case ELFOSABI_IRIX: printf("IRIX ABI\n"); break;
+        case ELFOSABI_FREEBSD: printf("FreeBSD ABI\n"); break;
+        case ELFOSABI_TRU64: printf("TRU64 UNIX ABI\n"); break;
+        case ELFOSABI_ARM: printf("ARM architecture ABI\n"); break;
+        case ELFOSABI_STANDALONE: printf("Standalone (embedded) ABI\n"); break;
+        default: printf("Unknown\n"); break;
+    }
+    printf("  ABI Version:                       %d\n", elf_header->e_ident[EI_ABIVERSION]);
+    printf("  Type:                              ");
+    switch (elf_header->e_type)
+    {
+        case ET_NONE: printf("NONE (Unknown type)\n"); break;
+        case ET_REL: printf("REL (Relocatable file)\n"); break;
+        case ET_EXEC: printf("EXEC (Executable file)\n"); break;
+        case ET_DYN: printf("DYN (Shared object file)\n"); break;
+        case ET_CORE: printf("CORE (Core file)\n"); break;
+        default: printf("Unknown\n"); break;
+    }
+    printf("  Entry point address:               0x%lx\n", elf_header->e_entry);
 }
 
-/* Read the ELF header */
-bytes_read = read(file, &header, sizeof(header));
-if (bytes_read != sizeof(header))
+int main(int argc, char** argv)
 {
-dprintf(STDERR_FILENO, "Error: Cannot read ELF header from file '%s'.\n", argv[1]);
-exit(98);
-}
+    if (argc != 2)
+    {
+        print_error("Usage: elf_header elf_filename");
+    }
+    int fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+    {
 
-/* Verify that the file is an ELF file */
-for (i = 0; i < EI_NIDENT; i++)
-{
-if (i == 4)
-printf("%c", header.e_ident[i]);
-else
-printf("%.2x ", header.e_ident[i]);
-}
-if (memcmp(header.e_ident, ELFMAG, SELFMAG) != 0)
-{
-printf("\nThis is not an ELF file\n");
-exit(98);
-}
-else
-printf("\n %-35s%-5hd %-26s\n", "Class:", header.e_ident[EI_CLASS], (header.e_ident[EI_CLASS] == ELFCLASS32) ? "ELF32" : "ELF64");
-
-/* Print the rest of the information */
-printf(" %-35s%-5s %-26s\n", "Data:", (header.e_ident[EI_DATA] == ELFDATA2LSB) ? "2's complement, little endian" : "2's complement, big endian", "");
-printf(" %-35s%-5d %-26s\n", "Version:", header.e_ident[EI_VERSION], "");
-printf(" %-35s%-5d %-26s\n", "OS/ABI:", header.e_ident[EI_OSABI], "");
-printf(" %-35s%-5d %-26s\n", "ABI Version:", header.e_ident[EI_ABIVERSION], "");
-printf(" %-35s%-5hd %-26s\n", "Type:", header.e_type, "");
-printf(" %-35s%#lx %-26s\n", "Entry point address:", header.e_entry, "");
-
-/* Close the file descriptor */
-if (close(file) == -1)
-{
-dprintf(STDERR_FILENO, "Error: Cannot close file descriptor %d.\n", file);
-exit(98);
-}
-
-return (0);
+        print_error("Unable to open file");
+    }
+    Elf64_Ehdr elf_header;
+    if (read(fd, &elf_header, sizeof(Elf64_Ehdr)) != sizeof(Elf64_Ehdr))
+        print_error("Unable to read ELF header");
 }
