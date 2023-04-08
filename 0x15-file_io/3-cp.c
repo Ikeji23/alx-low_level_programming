@@ -7,6 +7,26 @@
 
 #define BUFFER_SIZE 1024
 
+/**
+ * main - Entry point
+ *
+ * @argc: argument count
+ * @argv: command line arguments
+ *
+ * Description: - A program that copies the content of a file to another file.
+ *		- Usage: cp file_from file_to
+ *		- Permissions of the created file: rw-rw-r--.
+ *		- If the file already exists, do not change the permissions
+ *		- Use 1,024 bytes at a time from the file_from
+ *		- dprintf is allowed to use
+ *
+ * Return: 0 (sucess), or exit with status of:
+ *	97 - if argc is not correct,
+ *	98 - if file_from does not exist or cannot be read from
+ *	99 - if unable to create or if write to file_to fails
+ *	100 - if unable to close the file descriptor
+ *
+ */
 int main(int argc, char *argv[])
 {
     if (argc != 3)
