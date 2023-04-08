@@ -30,13 +30,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (read_count == -1)
 		return (0);
 
-<<<<<<< HEAD
 	write_count = write(STDOUT_FILENO, buffer, read_count);
-=======
-	ssize_t nread = read(fd, buf, letters);
-	
-	if (nread == -1)
->>>>>>> ddb54fb065a2780cc5534d4021b163a0f171a62a
 
 	close(fd);
 	free(buffer);
