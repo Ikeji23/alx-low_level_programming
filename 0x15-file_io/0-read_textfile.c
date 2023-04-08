@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "main.h"
 
 /**
